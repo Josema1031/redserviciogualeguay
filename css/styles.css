@@ -1,0 +1,324 @@
+
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Estilo para la sección de servicios */
+#servicios {
+  padding: 20px;
+  text-align: center;
+}
+
+#listaServicios {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.servicio-card {
+  background-color: white;
+  margin: 20px;
+  padding: 20px;
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.servicio-card:hover {
+  transform: scale(1.05);  /* Agranda la tarjeta al pasar el ratón */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);  /* Sombra más pronunciada */
+}
+
+/* Estilo de las imágenes dentro de las tarjetas */
+
+
+
+
+/* Hacer las tarjetas responsivas */
+@media (max-width: 768px) {
+  #listaServicios {
+    justify-content: center; /* Centrar las tarjetas */
+  }
+
+  .servicio-card {
+    width: 100%; /* Las tarjetas ocupan todo el ancho en pantallas pequeñas */
+    margin: 10px 0; /* Añadir un poco de margen para que no estén pegadas */
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #2c3e50;
+  color: white;
+}
+
+/* Estilos para el mensaje de no resultados */
+.mensaje-no-encontrado {
+  color:red;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+/* Estilos para la barra de búsqueda y controles */
+#busqueda {
+  text-align:end;
+  margin: 20px 0;
+}
+
+#busqueda input {
+  padding: 10px;
+  font-size: 15px;
+  width: 150px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-right: 30px;
+}
+
+#busqueda button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#busqueda button:hover {
+  background-color: #2980b9;
+}
+
+
+
+/* Estilos para el contador de servicios */
+#contadorServicios {
+  text-align: center;
+  font-size: 18px;
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+/* Estilos para la paginación */
+#paginacion button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#paginacion button:hover {
+  background-color: #2980b9;
+}
+
+#paginacion button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#login button:hover {
+  background-color: #2980b9;
+}
+
+/* Asegurarnos de que el contenedor de las tarjetas usa Flexbox */
+#listaServiciosAdmin {
+  display: flex;  /* Usamos Flexbox para alinear las tarjetas */
+  flex-wrap: wrap;  /* Permite que las tarjetas se ajusten a nuevas filas si es necesario */
+  justify-content: space-between;  /* Distribuye las tarjetas con espacio entre ellas */
+  gap: 1px;  /* Espacio entre las tarjetas */
+}
+
+/* Estilo de las tarjetas, para que se vean todas del mismo tamaño */
+.servicio-card {
+  background-color: white;
+  margin: 20px;
+  padding: 20px;
+  width: 250px; /* Establece un ancho fijo para las tarjetas */
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Efecto de hover para las tarjetas */
+.servicio-card:hover {
+  transform: scale(1.05);  /* Agranda la tarjeta al pasar el ratón */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);  /* Sombra más pronunciada */
+}
+
+/* Estilo para las imágenes dentro de las tarjetas */
+.servicio-card img {
+  width: 100%;  /* Las imágenes ocuparán el 100% del contenedor de la tarjeta */
+  height: 100px; /* Establece una altura fija para las imágenes */
+  object-fit: cover; /* Mantiene la proporción de la imagen y recorta el exceso si es necesario */
+  border-radius: 8px; /* Redondea las esquinas de las imágenes */
+}
+
+.servicio-card h3 {
+  margin: 10px 0;
+  color: black;
+  word-wrap: break-word;  /* Permite que las palabras largas se rompan */
+  white-space: normal;    /* Permite que el texto se ajuste a múltiples líneas */
+  overflow-wrap: break-word; /* Asegura que el contenido largo se ajuste dentro del contenedor */
+}
+
+
+
+
+
+/* Contenedor común para los formularios */
+#contenedorFormularios {
+  display: flex;
+  gap: 20px; /* Espacio entre los formularios */
+  justify-content: flex-start; /* Alinea los formularios al principio */
+  flex-wrap: wrap; /* Los formularios se adaptan en pantallas pequeñas */
+}
+
+/* Estilo para el formulario Agregar Nuevo Servicio */
+#agregarServicio {
+  max-width: 400px; /* Mismo ancho que editar */
+  margin: 50px 0 50px 50px;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#agregarServicio h2 {
+  margin-bottom: 30px;
+  color: black;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* Estilo para el formulario Editar Servicio */
+#modalEditar {
+  max-width: 400px; /* Mismo ancho */
+  margin: 50px 0 50px 50px;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#modalEditar h2 {
+  margin-bottom: 30px;
+  color: black;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* Para los formularios dentro de los contenedores */
+#formAgregarServicio, #formEditarServicio {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px 30px;
+  align-items: center;
+}
+
+#formAgregarServicio label, #formEditarServicio label {
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+}
+
+#formAgregarServicio input, #formEditarServicio input {
+  text-align: left;
+  width: 80%;
+  padding: 10px 20px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s;
+}
+
+#formAgregarServicio button, #formEditarServicio button {
+  grid-column: 1 / -1;
+  padding: 15px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+#formAgregarServicio button:hover, #formEditarServicio button:hover {
+  background-color: red;
+}
+
+/* Estilo para el botón de Cerrar en el modal de editar */
+#formEditarServicio button[type="button"] {
+  grid-column: 1 / -1;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #ccc;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background-color 0.3s;
+}
+
+#formEditarServicio button[type="button"]:hover {
+  background-color: #bbb;
+}
+
+/* Adaptable para pantallas pequeñas */
+@media (max-width: 768px) {
+  #contenedorFormularios {
+    flex-direction: column; /* Apilar los formularios uno debajo del otro */
+    gap: 20px; /* Espacio entre los formularios cuando estén apilados */
+  }
+
+  #agregarServicio, #modalEditar {
+    max-width: 100%; /* Asegura que los formularios no excedan el ancho */
+    margin: 0; /* Eliminar márgenes en pantallas pequeñas */
+  }
+
+  #formAgregarServicio, #formEditarServicio {
+    grid-template-columns: 1fr; /* Una columna para los formularios en pantallas pequeñas */
+  }
+}

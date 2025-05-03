@@ -1,0 +1,130 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Red de Servicio Gualeguay</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Panel de Administración - Red de Servicio Gualeguay</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="admin.html">Panel de Administración</a>
+
+            <!-- Formulario de búsqueda -->
+            <section id="busqueda">
+                <input type="text" id="buscador" placeholder="Buscar servicio..." style="margin-bottom: 20px; padding: 10px; width: 100%; max-width: 400px;">
+
+        </nav>
+    </header>
+    <section id="contenedorFormularios">
+    <section id="agregarServicio">
+    <h2>Agregar un nuevo servicio</h2>
+    <form id="formAgregarServicio">
+        <label for="nombre">Nombre del servicio:</label>
+        <input type="text" id="nombre" required>
+
+        <label for="descripcion">Descripción del servicio:</label>
+        <textarea id="descripcion" rows="4" required></textarea>
+
+        <label for="categoria">Categoría:</label>
+        <input type="text" id="categoria" placeholder="Ej: Electricista, Plomero, Carpintero" required>
+
+        <label for="telefono">Teléfono de contacto:</label>
+        <input type="tel" id="telefono" placeholder="Ej: +54 9 11 1234-5678" required>
+
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" placeholder="Ej: contacto@servicio.com" required>
+
+        <label for="imagen">URL de la imagen (opcional):</label>
+        <input type="url" id="imagen" placeholder="Ej: https://miimagen.com/logo.png">
+
+        <label for="direccion">Dirección física:</label>
+        <input type="text" id="direccion" required>
+
+        <label for="horario">Horario de atención:</label>
+        <input type="text" id="horario" placeholder="Ej: Lunes a viernes de 9 a 18 hs" required>
+
+        <label for="web">Sitio web (opcional):</label>
+        <input type="url" id="web" placeholder="Ej: https://www.servicio.com">
+
+        <label for="facebook">Facebook (opcional):</label>
+        <input type="url" id="facebook" placeholder="Ej: https://facebook.com/miempresa">
+
+        <label for="instagram">Instagram (opcional):</label>
+        <input type="url" id="instagram" placeholder="Ej: https://instagram.com/miempresa">
+<!-- Campo para URL de geolocalización -->
+<label for="geolocalizacion">Ubicación (Google Maps):</label>
+<input type="url" id="geolocalizacion" placeholder="https://maps.google.com/..." required>
+
+        <button type="submit">Agregar servicio</button>
+
+        
+
+    </form>
+</section>
+
+    <!-- Modal para editar un servicio -->
+    <div id="modalEditar">
+        <h2>Editar Servicio</h2>
+        <form id="formEditarServicio">
+            <label for="editNombre">Nombre:</label>
+            <input type="text" id="editNombre" required>
+
+            <label for="editDescripcion">Descripción:</label>
+            <input type="text" id="editDescripcion" required>
+
+            <label for="editCategoria">Categoría:</label>
+            <input type="text" id="editCategoria" placeholder="Ej: Electricista, Plomero, Carpintero" required>
+    
+            <label for="editTelefono">Teléfono de contacto:</label>
+            <input type="tel" id="editTelefono" placeholder="Ej: +54 9 11 1234-5678" required>
+    
+            <label for="editEmail">Correo electrónico:</label>
+            <input type="email" id="editEmail" placeholder="Ej: contacto@servicio.com" required>
+  
+            <label for="editImagen">URL de la imagen:</label>
+            <input type="text" id="editImagen" required>
+
+            <label for="editDireccion">Dirección:</label>
+            <input type="text" id="editDireccion" required>
+
+            <label for="editHorario">Horario de atención:</label>
+            <input type="text" id="editHorario" required>
+
+            <label for="editWeb">Sitio web (opcional):</label>
+        <input type="url" id="editWeb" placeholder="Ej: https://www.servicio.com">
+
+        <label for="editFacebook">Facebook (opcional):</label>
+        <input type="url" id="editFacebook" placeholder="Ej: https://facebook.com/miempresa">
+
+        <label for="editInstagram">Instagram (opcional):</label>
+        <input type="url" id="editInstagram" placeholder="Ej: https://instagram.com/miempresa">
+<!-- Campo para editar URL de geolocalización -->
+<label for="editGeolocalizacion">Ubicación (Google Maps):</label>
+<input type="url" id="editGeolocalizacion" placeholder="https://maps.google.com/..." required>
+
+
+            <button type="submit">Guardar cambios</button>
+            <!--     este boton me servira para otra ocasion 
+            <button type="button" onclick="cerrarModal()">Cerrar</button>-->
+        </form>
+    </div>
+
+    <section id="serviciosExistentes">
+        <h2>Servicios existentes</h2>
+        <div id="listaServiciosAdmin"></div>
+    </section>
+
+    
+
+    <footer>
+        <p>&copy; 2025 Red de Servicio Gualeguay</p>
+    </footer>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red de Servicio Gualeguay</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+</head>
+<body>
+    <!-- Header de la página -->
+    <header>
+        <h1>Red de Servicio Gualeguay</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+
+             <!-- Formulario de búsqueda --> 
+    <section id="busqueda">
+        <input type="text" id="buscarServicio" placeholder="Buscar servicio..." onkeyup="buscarServicio()">
+        
+        </nav>
+    </header>   
+
+<select id="categoriaFiltro" onchange="buscarServicio()">
+    <option value="todas">Todas las categorías</option>
+    <option value="Electricista">Electricista</option>
+    <option value="Plomero">Plomero</option>
+    <option value="Carpintero">Carpintero</option>
+</select>
+
+<select id="ordenarServicios" onchange="buscarServicio()">
+    <option value="default">Ordenar por...</option>
+    <option value="asc">Nombre (A-Z)</option>
+    <option value="desc">Nombre (Z-A)</option>
+</select>
+
+<button onclick="limpiarBusqueda()">Limpiar búsqueda</button>
+
+    <!-- Sección de servicios -->
+    <section id="servicios">
+        <h2>Servicios disponibles</h2>
+        <div id="contadorServicios"></div> <!-- contador agregado -->
+        <div id="listaServicios">
+            <!-- Los servicios se cargarán dinámicamente aquí -->
+        </div>
+    </section>
+
+    <!-- Paginación -->
+    <div id="paginacion" style="text-align: center; margin-top: 20px;"></div>
+  </div>
+
+    <footer>
+        <p>&copy; 2025 Red de Servicio Gualeguay</p>
+    </footer>
+
+
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+    <script src="js/index.js"></script>
+</body>
+</html>
