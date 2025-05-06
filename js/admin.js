@@ -257,6 +257,23 @@ function calificarServicio(id, calificacion) {
   }
 }
 
-
-
-
+document.getElementById('ordenar').addEventListener('change', (e) => {
+    const criterio = e.target.value;
+    servicios.sort((a, b) => a[criterio].localeCompare(b[criterio]));
+    cargarServicios();
+  });
+  
+  document.getElementById('filtro-categoria').addEventListener('change', (e) => {
+    const categoria = e.target.value;
+    const tarjetas = document.querySelectorAll('.tarjeta-servicio');
+  
+    tarjetas.forEach(tarjeta => {
+      const categoriaServicio = tarjeta.querySelector('.categoria-servicio').textContent.toLowerCase();
+      if (!categoria || categoriaServicio.includes(categoria.toLowerCase())) {
+        tarjeta.style.display = 'block';
+      } else {
+        tarjeta.style.display = 'none';
+      }
+    });
+  });
+  

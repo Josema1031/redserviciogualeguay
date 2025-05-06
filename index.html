@@ -27,6 +27,9 @@
         </nav>
     </header>   
 
+  
+  
+
 <select id="categoriaFiltro" onchange="buscarServicio()">
     <option value="todas">Todas las categorías</option>
     <option value="Electricista">Electricista</option>
@@ -41,6 +44,18 @@
 </select>
 
 <button onclick="limpiarBusqueda()">Limpiar búsqueda</button>
+
+<div id="listaServiciosPublico"></div>
+
+    
+    <!-- Modal -->
+<div id="modalServicio" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-button" onclick="cerrarModal()">&times;</span>
+      <div id="contenidoModal"></div>
+    </div>
+  </div>
+  
 
     <!-- Sección de servicios -->
     <section id="servicios">

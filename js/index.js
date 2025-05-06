@@ -23,24 +23,9 @@ function cargarServiciosEnInicio() {
             <p><strong>Dirección:</strong> ${servicio.direccion}</p>  <!-- Mostrar dirección -->
             <p><strong>Ubicación:</strong> <a href="${servicio.geolocalizacion}" target="_blank">Ver en mapa</a></p>
             <p><strong>Horario:</strong> ${servicio.horario}</p>  <!-- Mostrar horario -->
-            <p><strong>Web:</strong> ${servicio.web}</p>
-            <p><strong>Facebook:</strong> ${servicio.facebook}</p>
-            <p><strong>Instagram:</strong> ${servicio.instagram}</p>
-            <p><strong>Calificación:</strong> ${promedio} ⭐</p>
+             <button onclick="mostrarModal(${servicio.id})">Ver servicio</button>
+            
 
-    <!-- Formulario para calificar -->
-    <div>
-        <label for="calificacion-${servicio.id}">Calificar:</label>
-        <select id="calificacion-${servicio.id}">
-            <option value="1">⭐</option>
-            <option value="2">⭐⭐</option>
-            <option value="3">⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="5">⭐⭐⭐⭐⭐</option>
-        </select>
-        <button onclick="calificarServicio(${servicio.id})">Enviar</button>
-    </div>
-  <!-- Mostrar horario -->
         `;
         listaServicios.appendChild(tarjeta);
     });
@@ -67,7 +52,6 @@ function buscarServicio() {
             const tarjeta = document.createElement("div");
             tarjeta.classList.add("servicio-card");
             tarjeta.innerHTML = `
-                <img src="${servicio.imagen}" alt="${servicio.nombre}">
                 <h3>${servicio.nombre}</h3>
                 <p>${servicio.descripcion}</p>
                 <p><strong>Dirección:</strong> ${servicio.direccion}</p>  <!-- Mostrar dirección -->
@@ -140,6 +124,42 @@ function limpiarBusqueda() {
     cargarServiciosEnInicio(); // Volvemos a mostrar todos los servicios
 }
 
+// Función donde se muestra todo los datos del modal
+
+function mostrarModal(id) {
+    const servicios = JSON.parse(localStorage.getItem("servicios")) || [];
+    const servicio = servicios.find(s => s.id === id);
+    if (!servicio) return;
+
+    const promedio =
+        servicio.calificaciones && servicio.calificaciones.length > 0
+            ? (servicio.calificaciones.reduce((a, b) => a + b, 0) / servicio.calificaciones.length).toFixed(1)
+            : "Sin calificaciones";
+
+    const contenido = `
+        <img src="${servicio.imagen}" alt="${servicio.nombre}">
+        <h3>${servicio.nombre}</h3>
+        <p>${servicio.descripcion}</p>
+        <p><strong>Teléfono:</strong> ${servicio.telefono}</p>
+        <p><strong>Email:</strong> ${servicio.email}</p>
+        <p><strong>Dirección:</strong> ${servicio.direccion}</p>
+        <p><strong>Ubicación:</strong> <a href="${servicio.geolocalizacion}" target="_blank">Ver en mapa</a></p>
+        <p><strong>Horario:</strong> ${servicio.horario}</p>
+        <p><strong>Web:</strong> ${servicio.web}</p>
+        <p><strong>Facebook:</strong> ${servicio.facebook}</p>
+        <p><strong>Instagram:</strong> ${servicio.instagram}</p>
+        <p><strong>Calificación:</strong> ${promedio} ⭐</p>
+    `;
+
+    document.getElementById("contenidoModal").innerHTML = contenido;
+    document.getElementById("modalServicio").style.display = "block";
+}
+
+function cerrarModal() {
+    document.getElementById("modalServicio").style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", cargarServiciosEnInicio);
 
 
 
