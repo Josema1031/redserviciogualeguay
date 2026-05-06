@@ -1,85 +1,170 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Red de Servicio Gualeguay</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red de Servicio Gualeguay | Servicios confiables cerca tuyo</title>
+  <meta name="description" content="Encontrá electricistas, plomeros, gasistas, técnicos y prestadores de servicios confiables en Gualeguay." />
+  <meta property="og:title" content="Red de Servicio Gualeguay" />
+  <meta property="og:description" content="La red local para encontrar servicios confiables, rápidos y cerca tuyo." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" />
+  <link rel="shortcut icon" href="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" type="image/x-icon" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-    <!-- Header de la página -->
-    <header>
-        <h1>Red de Servicio Gualeguay</h1>
-        <nav>
-            <a href="index.html">Inicio</a>
+  <header class="site-header">
+    <div class="topbar contenedor">
+      <a class="brand" href="index.html" aria-label="Red de Servicio Gualeguay">
+        <img src="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" alt="Logo Red de Servicio" class="brand-logo" />
+        <span>Red de Servicio <strong>Gualeguay</strong></span>
+      </a>
+      <nav class="desktop-nav">
+        <a href="#servicios">Servicios</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#planes">Publicar mi servicio</a>
+        <a href="prestador-registro.html">Publicar servicio</a>
+        <a href="login-prestador.html">Ingresar prestador</a>
+        <a href="login.html" class="nav-admin">Admin</a>
+      </nav>
+      <button class="mobile-menu-toggle" id="btnMobileMenu" type="button" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+    </div>
 
-             <!-- Formulario de búsqueda --> 
-    <section id="busqueda">
-        <input type="text" id="buscarServicio" placeholder="Buscar servicio..." onkeyup="buscarServicio()">
-        
-        </nav>
-    </header>   
+    <nav class="mobile-menu-panel contenedor" id="mobileMenu" aria-label="Menú móvil">
+      <a href="#servicios">🔎 Buscar servicio</a>
+      <a href="prestador-registro.html">➕ Publicar mi servicio</a>
+      <a href="login-prestador.html">👤 Ingresar como prestador</a>
+      <a href="#como-funciona">ℹ️ Cómo funciona</a>
+    </nav>
 
-  
-  
+    <section class="hero contenedor">
+      <div class="hero-copy">
+        <span class="hero-badge">Servicios locales verificados</span>
+        <h1>Encontrá rápido un prestador confiable cerca tuyo.</h1>
+        <p>Electricistas, plomeros, gasistas, técnicos, carpinteros y más servicios para vecinos de Gualeguay.</p>
+        <div class="hero-actions">
+          <a href="#servicios" class="btn btn-primary">Buscar servicio</a>
+          <a href="prestador-registro.html" class="btn btn-secondary">Publicar mi servicio</a>
+          <a href="login-prestador.html" class="btn btn-light">Ingresar como prestador</a>
+        </div>
+        <p class="mobile-hero-help">Tocá el menú ☰ para publicar o ingresar como prestador.</p>
+      </div>
+      <div class="hero-card">
+        <h2>¿Qué necesitás solucionar?</h2>
+        <div class="search-panel">
+          <input type="text" id="buscarServicio" placeholder="Ej: electricista, plomero, gasista..." />
+          <select id="categoriaFiltro">
+            <option value="todas">Todas las categorías</option>
+            <option value="Electricista">Electricista</option>
+            <option value="Plomero">Plomero</option>
+            <option value="Gasista">Gasista</option>
+            <option value="Carpintero">Carpintero</option>
+            <option value="Técnico">Técnico</option>
+            <option value="Albañil">Albañil</option>
+            <option value="Jardinería">Jardinería</option>
+          </select>
+          <select id="ordenarServicios">
+            <option value="default">Ordenar por...</option>
+            <option value="premium">Destacados primero</option>
+            <option value="rating">Mejor valorados</option>
+            <option value="asc">Nombre A-Z</option>
+            <option value="desc">Nombre Z-A</option>
+          </select>
+          <button type="button" id="btnLimpiar" class="btn btn-light">Limpiar</button>
+        </div>
+      </div>
+    </section>
+  </header>
 
-<select id="categoriaFiltro" onchange="buscarServicio()">
-    <option value="todas">Todas las categorías</option>
-    <option value="Electricista">Electricista</option>
-    <option value="Plomero">Plomero</option>
-    <option value="Carpintero">Carpintero</option>
-</select>
+  <main>
+    <section class="categorias contenedor" aria-label="Categorías rápidas">
+      <button class="categoria-chip active" data-categoria="todas">Todos</button>
+      <button class="categoria-chip" data-categoria="Electricista">⚡ Electricista</button>
+      <button class="categoria-chip" data-categoria="Plomero">🔧 Plomero</button>
+      <button class="categoria-chip" data-categoria="Gasista">🔥 Gasista</button>
+      <button class="categoria-chip" data-categoria="Carpintero">🪵 Carpintero</button>
+      <button class="categoria-chip" data-categoria="Técnico">🛠️ Técnico</button>
+      <button class="categoria-chip" data-categoria="Albañil">🏗️ Albañil</button>
+    </section>
 
-<select id="ordenarServicios" onchange="buscarServicio()">
-    <option value="default">Ordenar por...</option>
-    <option value="asc">Nombre (A-Z)</option>
-    <option value="desc">Nombre (Z-A)</option>
-</select>
+    <section id="servicios" class="servicios-section contenedor">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Directorio local</span>
+          <h2>Servicios disponibles</h2>
+        </div>
+        <div id="contadorServicios" class="contador-card">Cargando servicios...</div>
+      </div>
+      <div id="listaServicios" class="servicios-grid"></div>
+      <div id="estadoServicios" class="estado-servicios"></div>
+    </section>
 
-<button onclick="limpiarBusqueda()">Limpiar búsqueda</button>
+    <section id="como-funciona" class="como-funciona contenedor">
+      <div class="section-head centered">
+        <span class="section-kicker">Simple y rápido</span>
+        <h2>Cómo funciona</h2>
+      </div>
+      <div class="pasos-grid">
+        <article class="paso-card"><span>1</span><h3>Buscás</h3><p>Elegís la categoría o escribís el servicio que necesitás.</p></article>
+        <article class="paso-card"><span>2</span><h3>Comparás</h3><p>Ves ubicación, horario, descripción y reputación del prestador.</p></article>
+        <article class="paso-card"><span>3</span><h3>Contactás</h3><p>Te comunicás directo por WhatsApp o llamada.</p></article>
+      </div>
+    </section>
 
-<div id="listaServiciosPublico"></div>
+    <section id="planes" class="planes contenedor">
+      <div class="planes-copy">
+        <span class="section-kicker">Para prestadores</span>
+        <h2>Hacé visible tu servicio en Gualeguay.</h2>
+        <p>Los primeros prestadores pueden ingresar en etapa de lanzamiento. Se registran, completan su perfil y quedan pendientes de aprobación para cuidar la calidad de la red.</p>
+      </div>
+      <div class="planes-grid">
+        <article class="plan-card"><h3>Básico</h3><p>Perfil simple en el directorio.</p><strong>Gratis lanzamiento</strong><a class="btn btn-light" href="prestador-registro.html">Registrarme</a><a class="link-plan" href="login-prestador.html">Ya tengo cuenta</a></article>
+        <article class="plan-card destacado"><h3>Profesional</h3><p>Más visibilidad, fotos y estadísticas.</p><strong>Próxima etapa</strong></article>
+        <article class="plan-card"><h3>Premium</h3><p>Destacado arriba, insignia y urgencias.</p><strong>Próxima etapa</strong></article>
+      </div>
+    </section>
+  </main>
 
-    
-    <!-- Modal -->
-<div id="modalServicio" class="modal-overlay">
+  <div id="modalServicio" class="modal-overlay" aria-hidden="true">
     <div class="modal-content">
-      <span class="close-button" onclick="cerrarModal()">&times;</span>
+      <button class="close-button" type="button" onclick="cerrarModal()">&times;</button>
       <div id="contenidoModal"></div>
     </div>
   </div>
-  
 
-    <!-- Sección de servicios -->
-    <section id="servicios">
-        <h2>Servicios disponibles</h2>
-        <div id="contadorServicios"></div> <!-- contador agregado -->
-        <div id="listaServicios">
-            <!-- Los servicios se cargarán dinámicamente aquí -->
-        </div>
-    </section>
+  <nav class="mobile-bottom-nav" aria-label="Navegación móvil">
+    <a class="active" href="index.html"><strong>⌂</strong><span>Inicio</span></a>
+    <a href="#servicios"><strong>🔎</strong><span>Buscar</span></a>
+    <a href="prestador-registro.html"><strong>＋</strong><span>Publicar</span></a>
+    <a href="login-prestador.html"><strong>👤</strong><span>Ingresar</span></a>
+  </nav>
 
-    <!-- Paginación -->
-    <div id="paginacion" style="text-align: center; margin-top: 20px;"></div>
-  </div>
+  <a class="whatsapp-float" href="https://wa.me/5493444540000?text=Hola,%20quiero%20consultar%20por%20Red%20de%20Servicio%20Gualeguay" target="_blank" aria-label="WhatsApp">💬</a>
 
-    <footer>
-        <p>&copy; 2025 Red de Servicio Gualeguay</p>
-    </footer>
+  <footer class="footer">
+    <p>&copy; 2026 Red de Servicio Gualeguay. Plataforma local de servicios.</p>
+  </footer>
 
+  <script>
+    const btnMobileMenu = document.getElementById('btnMobileMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
 
+    if (btnMobileMenu && mobileMenu) {
+      btnMobileMenu.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('show');
+        btnMobileMenu.setAttribute('aria-expanded', String(isOpen));
+        btnMobileMenu.textContent = isOpen ? '×' : '☰';
+      });
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-
-    <script src="js/index.js"></script>
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('show');
+          btnMobileMenu.setAttribute('aria-expanded', 'false');
+          btnMobileMenu.textContent = '☰';
+        });
+      });
+    }
+  </script>
+  <script type="module" src="js/index.js"></script>
 </body>
 </html>

@@ -1,143 +1,165 @@
-<!-- admin.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - Red de Servicio Gualeguay</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración | Red de Servicio Gualeguay</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-    <header>
-        <h1>Panel de Administración - Red de Servicio Gualeguay</h1>
-        <nav>
-            <a href="index.html">Inicio</a>
-            <a href="admin.html">Panel de Administración</a>
+  <header class="admin-header">
+    <div class="contenedor topbar">
+      <a class="brand" href="index.html">
+        <img src="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" alt="Logo" class="brand-logo" />
+        <span>Red de Servicio <strong>Gualeguay</strong></span>
+      </a>
+      <nav class="desktop-nav">
+        <a href="index.html">Ver sitio</a>
+        <a href="servicios.html">Servicios registrados</a>
+        <a href="prestador-registro.html">Registro prestador</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
 
-            <!-- Formulario de búsqueda -->
-            <section id="busqueda">
-                <input type="text" id="buscador" placeholder="Buscar servicio..." style="margin-bottom: 20px; padding: 10px; width: 100%; max-width: 400px;">
+    <div class="contenedor admin-title">
+      <div>
+        <span class="hero-badge">Panel administrador</span>
+        <h1>Gestión de prestadores</h1>
+        <p>Cargá, editá, verificá y destacá servicios para preparar la plataforma para monetización.</p>
+      </div>
+    </div>
 
-        </nav>
-    </header>
-    <select id="ordenar">
+    <div class="contenedor admin-toolbar">
+      <input type="text" id="buscador" placeholder="Buscar por nombre, categoría o zona..." />
+      <select id="ordenar">
         <option value="nombre">Ordenar por nombre</option>
         <option value="categoria">Ordenar por categoría</option>
+        <option value="plan">Ordenar por plan</option>
+        <option value="estado">Ordenar por estado</option>
+        <option value="vistas">Más visitas</option>
+        <option value="contactos">Más contactos WhatsApp</option>
+        <option value="rating">Mejor reputación</option>
       </select>
-
       <select id="filtro-categoria">
         <option value="">Todas las categorías</option>
         <option value="Electricista">Electricista</option>
+        <option value="Plomero">Plomero</option>
         <option value="Gasista">Gasista</option>
-        <!-- Agregar más -->
+        <option value="Carpintero">Carpintero</option>
+        <option value="Técnico">Técnico</option>
+        <option value="Albañil">Albañil</option>
+        <option value="Jardinería">Jardinería</option>
       </select>
-      
-      
-    <section id="contenedorFormularios">
-    <section id="agregarServicio">
-    <h2>Agregar un nuevo servicio</h2>
-    <form id="formAgregarServicio">
-        <label for="nombre">Nombre del servicio:</label>
-        <input type="text" id="nombre" required>
-
-        <label for="descripcion">Descripción del servicio:</label>
-        <textarea id="descripcion" rows="4" required></textarea>
-
-        <label for="categoria">Categoría:</label>
-        <input type="text" id="categoria" placeholder="Ej: Electricista, Plomero, Carpintero" required>
-
-        <label for="telefono">Teléfono de contacto:</label>
-        <input type="tel" id="telefono" placeholder="Ej: +54 9 11 1234-5678" required>
-
-        <label for="email">Correo electrónico:</label>
-        <input type="email" id="email" placeholder="Ej: contacto@servicio.com" required>
-
-        <label for="imagen">URL de la imagen (opcional):</label>
-        <input type="url" id="imagen" placeholder="Ej: https://miimagen.com/logo.png">
-
-        <label for="direccion">Dirección física:</label>
-        <input type="text" id="direccion" required>
-
-        <label for="horario">Horario de atención:</label>
-        <input type="text" id="horario" placeholder="Ej: Lunes a viernes de 9 a 18 hs" required>
-
-        <label for="web">Sitio web (opcional):</label>
-        <input type="url" id="web" placeholder="Ej: https://www.servicio.com">
-
-        <label for="facebook">Facebook (opcional):</label>
-        <input type="url" id="facebook" placeholder="Ej: https://facebook.com/miempresa">
-
-        <label for="instagram">Instagram (opcional):</label>
-        <input type="url" id="instagram" placeholder="Ej: https://instagram.com/miempresa">
-<!-- Campo para URL de geolocalización -->
-<label for="geolocalizacion">Ubicación (Google Maps):</label>
-<input type="url" id="geolocalizacion" placeholder="https://maps.google.com/..." required>
-
-        <button type="submit">Agregar servicio</button>
-
-        
-
-    </form>
-</section>
-
-    <!-- Modal para editar un servicio -->
-    <div id="modalEditar">
-        <h2>Editar Servicio</h2>
-        <form id="formEditarServicio">
-            <label for="editNombre">Nombre:</label>
-            <input type="text" id="editNombre" required>
-
-            <label for="editDescripcion">Descripción:</label>
-            <input type="text" id="editDescripcion" required>
-
-            <label for="editCategoria">Categoría:</label>
-            <input type="text" id="editCategoria" placeholder="Ej: Electricista, Plomero, Carpintero" required>
-    
-            <label for="editTelefono">Teléfono de contacto:</label>
-            <input type="tel" id="editTelefono" placeholder="Ej: +54 9 11 1234-5678" required>
-    
-            <label for="editEmail">Correo electrónico:</label>
-            <input type="email" id="editEmail" placeholder="Ej: contacto@servicio.com" required>
-  
-            <label for="editImagen">URL de la imagen:</label>
-            <input type="text" id="editImagen" required>
-
-            <label for="editDireccion">Dirección:</label>
-            <input type="text" id="editDireccion" required>
-
-            <label for="editHorario">Horario de atención:</label>
-            <input type="text" id="editHorario" required>
-
-            <label for="editWeb">Sitio web (opcional):</label>
-        <input type="url" id="editWeb" placeholder="Ej: https://www.servicio.com">
-
-        <label for="editFacebook">Facebook (opcional):</label>
-        <input type="url" id="editFacebook" placeholder="Ej: https://facebook.com/miempresa">
-
-        <label for="editInstagram">Instagram (opcional):</label>
-        <input type="url" id="editInstagram" placeholder="Ej: https://instagram.com/miempresa">
-<!-- Campo para editar URL de geolocalización -->
-<label for="editGeolocalizacion">Ubicación (Google Maps):</label>
-<input type="url" id="editGeolocalizacion" placeholder="https://maps.google.com/..." required>
-
-
-            <button type="submit">Guardar cambios</button>
-            <!--     este boton me servira para otra ocasion 
-            <button type="button" onclick="cerrarModal()">Cerrar</button>-->
-        </form>
+      <select id="filtro-estado">
+        <option value="">Todos los estados</option>
+        <option value="pendiente">Pendientes</option>
+        <option value="aprobado">Aprobados</option>
+        <option value="suspendido">Suspendidos</option>
+      </select>
+      <a class="btn btn-primary" href="servicios.html">Listado completo</a>
     </div>
+  </header>
 
-    <section id="serviciosExistentes">
-        <h2>Servicios existentes</h2>
+  <main class="contenedor admin-main">
+    <section class="admin-grid">
+      <article class="form-card">
+        <h2>Agregar nuevo servicio</h2>
+        <form id="formAgregarServicio" class="form-grid">
+          <label>Nombre del servicio<input type="text" id="nombre" required /></label>
+          <label>Categoría<input type="text" id="categoria" placeholder="Ej: Electricista" required /></label>
+          <label class="full">Descripción<textarea id="descripcion" rows="4" required></textarea></label>
+          <label>Teléfono / WhatsApp<input type="tel" id="telefono" placeholder="Ej: 3444 123456" required /></label>
+          <label>Email<input type="email" id="email" placeholder="contacto@servicio.com" /></label>
+          <label>Imagen URL<input type="url" id="imagen" placeholder="https://..." /></label>
+          <label>Dirección<input type="text" id="direccion" required /></label>
+          <label>Zona<input type="text" id="zona" placeholder="Centro, Gualeguay, zona norte..." /></label>
+          <label>Horario<input type="text" id="horario" placeholder="Lunes a viernes de 9 a 18 hs" required /></label>
+          <label>Google Maps<input type="url" id="geolocalizacion" placeholder="https://maps.google.com/..." /></label>
+          <label>Sitio web<input type="url" id="web" placeholder="https://..." /></label>
+          <label>Instagram<input type="url" id="instagram" placeholder="https://instagram.com/..." /></label>
+          <label>Facebook<input type="url" id="facebook" placeholder="https://facebook.com/..." /></label>
+          <label>Estado
+            <select id="estado">
+              <option value="pendiente">Pendiente</option>
+              <option value="aprobado">Aprobado</option>
+              <option value="suspendido">Suspendido</option>
+            </select>
+          </label>
+          <label>Plan
+            <select id="plan">
+              <option value="basico">Básico</option>
+              <option value="profesional">Profesional</option>
+              <option value="premium">Premium</option>
+            </select>
+          </label>
+          <div class="full check-row">
+            <label><input type="checkbox" id="verificado" /> Verificado</label>
+            <label><input type="checkbox" id="destacado" /> Destacado</label>
+            <label><input type="checkbox" id="urgencia24" /> Urgencia 24 hs</label>
+          </div>
+          <button class="btn btn-secondary full" type="submit">Agregar servicio</button>
+        </form>
+      </article>
+
+      <article class="form-card" id="modalEditar">
+        <h2>Editar servicio</h2>
+        <p>Seleccioná un servicio del listado para modificar sus datos.</p>
+        <form id="formEditarServicio" class="form-grid">
+          <label>Nombre<input type="text" id="editNombre" required /></label>
+          <label>Categoría<input type="text" id="editCategoria" required /></label>
+          <label class="full">Descripción<textarea id="editDescripcion" rows="4" required></textarea></label>
+          <label>Teléfono<input type="tel" id="editTelefono" required /></label>
+          <label>Email<input type="email" id="editEmail" /></label>
+          <label>Imagen URL<input type="url" id="editImagen" /></label>
+          <label>Dirección<input type="text" id="editDireccion" required /></label>
+          <label>Zona<input type="text" id="editZona" /></label>
+          <label>Horario<input type="text" id="editHorario" required /></label>
+          <label>Google Maps<input type="url" id="editGeolocalizacion" /></label>
+          <label>Sitio web<input type="url" id="editWeb" /></label>
+          <label>Instagram<input type="url" id="editInstagram" /></label>
+          <label>Facebook<input type="url" id="editFacebook" /></label>
+          <label>Estado
+            <select id="editEstado">
+              <option value="pendiente">Pendiente</option>
+              <option value="aprobado">Aprobado</option>
+              <option value="suspendido">Suspendido</option>
+            </select>
+          </label>
+          <label>Plan
+            <select id="editPlan">
+              <option value="basico">Básico</option>
+              <option value="profesional">Profesional</option>
+              <option value="premium">Premium</option>
+            </select>
+          </label>
+          <div class="full check-row">
+            <label><input type="checkbox" id="editVerificado" /> Verificado</label>
+            <label><input type="checkbox" id="editDestacado" /> Destacado</label>
+            <label><input type="checkbox" id="editUrgencia24" /> Urgencia 24 hs</label>
+          </div>
+          <button class="btn btn-secondary full" type="submit">Guardar cambios</button>
+        </form>
+      </article>
+
+      <article class="admin-list-card">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Base de servicios</span>
+            <h2>Servicios existentes</h2>
+          </div>
+          <div id="adminContador" class="contador-card">Cargando...</div>
+        </div>
         <div id="listaServiciosAdmin"></div>
+      </article>
     </section>
+  </main>
 
-    
-
-    <footer>
-        <p>&copy; 2025 Red de Servicio Gualeguay</p>
-    </footer>
-
-    <script src="js/admin.js"></script>
+  <script type="module" src="js/admin.js"></script>
+<nav class="mobile-bottom-nav" aria-label="Navegación móvil">
+    <a href="index.html"><strong>⌂</strong><span>Sitio</span></a>
+    <a href="prestador-registro.html"><strong>＋</strong><span>Publicar</span></a>
+    <a href="login-prestador.html"><strong>👤</strong><span>Prestador</span></a>
+    <a class="active" href="admin.html"><strong>⚙</strong><span>Admin</span></a>
+  </nav>
 </body>
 </html>

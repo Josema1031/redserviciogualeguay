@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login.css">
-    <title>LOGIN</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/login.css">
+  <title>LOGIN</title>
 </head>
+
 <body>
 
-    <!-- Formulario de login -->
-<div id="login">
+  <!-- Formulario de login -->
+  <div id="login">
     <h2>Iniciar sesión Panel de Control</h2>
     <form id="formLogin">
-      <input type="text" id="username" placeholder="Usuario" required>
-      <input type="password" id="password" placeholder="Contraseña" required>
+      <input type="text" id="username" placeholder="Correo electrónico" required>
+      <div style="position: relative;">
+        <input type="password" id="password" placeholder="Contraseña" required style="padding-right: 40px;">
+        <span id="togglePassword" style="
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: gray;
+          ">👁️</span>
+      </div>
+      
+
       <button type="submit">Iniciar sesión</button>
     </form>
     <p id="mensaje-error"></p>
   </div>
 
-    <script src="js/login.js"></script>
+  <script type="module" src="js/login.js"></script>
+
 
   </div>
-  
-    
-</body>
-</html>
 
+
+</body>
+
+</html>

@@ -1,279 +1,222 @@
-// admin.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-// Mostrar el formulario de edición con los datos del servicio
-function editarServicio(id) {
-    const servicios = JSON.parse(localStorage.getItem("servicios")) || [];
-    const servicio = servicios.find(servicio => servicio.id === id);
+const firebaseConfig = {
+  apiKey: "AIzaSyCXRkJAVQKMNgMGXFE8a13vrKvH4diARsg",
+  authDomain: "red-servicio-gualeguay.firebaseapp.com",
+  projectId: "red-servicio-gualeguay",
+  storageBucket: "red-servicio-gualeguay.firebasestorage.app",
+  messagingSenderId: "746177371010",
+  appId: "1:746177371010:web:44612952639c6666010d9b"
+};
 
-    if (servicio) {
-        // Llenar el formulario de edición con los datos del servicio
-        document.getElementById("editNombre").value = servicio.nombre;
-        document.getElementById("editDescripcion").value = servicio.descripcion;
-        document.getElementById("editCategoria").value = servicio.categoria;
-        document.getElementById("editTelefono").value = servicio.telefono;
-        document.getElementById("editEmail").value = servicio.email;
-        document.getElementById("editImagen").value = servicio.imagen;
-        document.getElementById("editDireccion").value = servicio.direccion; // Dirección
-        document.getElementById("editHorario").value = servicio.horario; // Horario de atención
-        document.getElementById("editWeb").value = servicio.web;
-        document.getElementById("editFacebook").value = servicio.facebook;
-        document.getElementById("editInstagram").value = servicio.instagram;
-        document.getElementById("editGeolocalizacion").value = servicio.geolocalizacion;
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const serviciosRef = collection(db, "servicios");
 
+let idServicioActual = null;
+let serviciosCache = [];
 
-       
-        
+const $ = (selector) => document.querySelector(selector);
+const normalizar = (texto = "") => texto.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+const valor = (id) => document.getElementById(id)?.value?.trim() || "";
+const check = (id) => document.getElementById(id)?.checked || false;
 
-        // Mostrar el modal de edición
-        document.getElementById("modalEditar").style.display = "block";
-
-        // Guardar el id del servicio que estamos editando
-        document.getElementById("formEditarServicio").onsubmit = function(event) {
-            event.preventDefault();
-            const nombre = document.getElementById("editNombre").value;
-            const descripcion = document.getElementById("editDescripcion").value;
-            const categoria = document.getElementById("editCategoria").value;
-            const telefono = document.getElementById("editTelefono").value;
-            const email = document.getElementById("editEmail").value;
-            const imagen = document.getElementById("editImagen").value;
-            const direccion = document.getElementById("editDireccion").value;  // Obtener la dirección
-            const horario = document.getElementById("editHorario").value;  // Obtener el horario
-            const web = document.getElementById("editWeb").value;
-            const facebook = document.getElementById("editFacebook").value;
-            const instagram = document.getElementById("editInstagram").value;
-            const geolocalizacion = document.getElementById("editGeolocalizacion").value;
-
-
-
-            // Actualizar el servicio con los nuevos datos
-            servicio.nombre = nombre;
-            servicio.descripcion = descripcion;
-            servicio.categoria = categoria;
-            servicio.telefono = telefono;
-            servicio.email = email;
-            servicio.imagen = imagen;
-            servicio.direccion = direccion;
-            servicio.horario = horario;
-            servicio.web = web;
-            servicio.facebook = facebook;
-            servicio.instagram = instagram;
-            servicio.geolocalizacion = geolocalizacion;
-
-
-
-
-            // Guardar los servicios actualizados en localStorage
-            localStorage.setItem("servicios", JSON.stringify(servicios));
-
-            alert("Servicio actualizado con éxito.");
-
-            // Recargar los servicios
-            cargarServicios();
-
-            // Cerrar el modal
-            cerrarModal();
-        };
-    }
+function textoRating(servicio = {}) {
+  const cantidad = Number(servicio.ratingCantidad || 0);
+  const promedio = Number(servicio.ratingPromedio || 0);
+  if (!cantidad || !promedio) return "Sin opiniones";
+  return `${promedio.toFixed(1)} ⭐ (${cantidad})`;
 }
 
-// Función para cerrar el modal
-function cerrarModal() {
-    document.getElementById("modalEditar").style.display = "none";
-}
-
-// Función para eliminar un servicio
-function eliminarServicio(id) {
-    let servicios = JSON.parse(localStorage.getItem("servicios")) || [];
-    servicios = servicios.filter(servicio => servicio.id !== id);
-    localStorage.setItem("servicios", JSON.stringify(servicios));
-    alert("Servicio eliminado.");
-    cargarServicios();
-}
-
-// Función para cargar los servicios
-function cargarServicios() {
-    const servicios = JSON.parse(localStorage.getItem("servicios")) || [];
-    const listaServicios = document.getElementById("listaServiciosAdmin");
-    listaServicios.innerHTML = ""; // Limpiar la lista
-
-    servicios.forEach(servicio => {
-        const tarjeta = document.createElement("div");
-        const promedio =
-    servicio.calificaciones && servicio.calificaciones.length > 0
-        ? (servicio.calificaciones.reduce((a, b) => a + b, 0) / servicio.calificaciones.length).toFixed(1)
-        : "Sin calificaciones";
-        tarjeta.classList.add("servicio-card");
-        tarjeta.innerHTML = `
-            <img src="${servicio.imagen}" alt="${servicio.nombre}">
-            <h3>${servicio.nombre}</h3>
-            <p>${servicio.descripcion}</p>
-            <p><strong>categoria:</strong> ${servicio.categoria}</p>
-            <p><strong>telefono:</strong> ${servicio.telefono}</p>  <!-- Mostrar dirección -->
-            <p><strong>Email:</strong> ${servicio.email}</p>
-            <p><strong>Dirección:</strong> ${servicio.direccion}</p>  <!-- Mostrar dirección -->
-            <p><strong>Ubicación:</strong> <a href="${servicio.geolocalizacion}" target="_blank">Ver en mapa</a></p>
-            <p><strong>Horario:</strong> ${servicio.horario}</p>  <!-- Mostrar horario -->
-            <p><strong>Web:</strong> ${servicio.web}</p>
-            <p><strong>Facebook:</strong> ${servicio.facebook}</p>
-            <p><strong>Instagram:</strong> ${servicio.instagram}</p>
-            <p><strong>Calificación:</strong> ${promedio} ⭐</p>
-
-    <!-- Formulario para calificar -->
-    <div>
-        <label for="calificacion-${servicio.id}">Calificar:</label>
-        <select id="calificacion-${servicio.id}">
-            <option value="1">⭐</option>
-            <option value="2">⭐⭐</option>
-            <option value="3">⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐</option>
-            <option value="5">⭐⭐⭐⭐⭐</option>
-        </select>
-        <button onclick="calificarServicio(${servicio.id})">Enviar</button>
-    </div>    
-
-    <!-- Comentarios -->
-<div class="comentarios">
-    <h4>Comentarios:</h4>
-    <ul id="lista-comentarios-${servicio.id}">
-        ${servicio.comentarios?.map(c => `<li>${c}</li>`).join('') || '<li>Sin comentarios.</li>'}
-    </ul>
-    <input type="text" id="comentario-input-${servicio.id}" placeholder="Escribe un comentario..." />
-    <button onclick="agregarComentario(${servicio.id})">Enviar</button>
-</div>
-
-
-
-
-            <button onclick="editarServicio(${servicio.id})">Editar</button>
-            <button onclick="eliminarServicio(${servicio.id})">Eliminar</button>
-        `;
-        listaServicios.appendChild(tarjeta);
-    });
-}
-
-
-
-// Función para agregar un nuevo servicio
-document.getElementById("formAgregarServicio").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const nombre = document.getElementById("nombre").value;
-    const descripcion = document.getElementById("descripcion").value;
-    const categoria = document.getElementById("categoria").value;  // Horario de atención
-    const telefono = document.getElementById("telefono").value;  // Horario de atención
-    const email = document.getElementById("email").value;  // Horario de atención
-    const imagen = document.getElementById("imagen").value;
-    const direccion = document.getElementById("direccion").value;  // Dirección
-    const horario = document.getElementById("horario").value;  // Horario de atención
-    const web = document.getElementById("web").value;  // Horario de atención
-    const facebook = document.getElementById("facebook").value;  // Horario de atención
-    const instagram = document.getElementById("instagram").value;  // Horario de atención
-    const geolocalizacion = document.getElementById("geolocalizacion").value;
-
-
-    const nuevoServicio = {
-        id: new Date().getTime(),
-        nombre,
-        descripcion,
-        categoria,
-        telefono,
-        email,
-        imagen,
-        direccion,  // Incluir la dirección
-        horario, // Incluir el horario
-        web,
-        facebook,
-        instagram,
-        geolocalizacion,
-        calificaciones, // 👈 nuevo campo para almacenar calificaciones
-        comentarios,// 👈 nuevo campo
-
-
-        
-    };
-
-    let servicios = JSON.parse(localStorage.getItem("servicios")) || [];
-    servicios.push(nuevoServicio);
-    localStorage.setItem("servicios", JSON.stringify(servicios));
-
-    alert(`Servicio '${nombre}' agregado exitosamente.`);
-
-    // Limpiar el formulario
-    document.getElementById("formAgregarServicio").reset();
-
-    // Recargar los servicios
-    cargarServicios();
+onAuthStateChanged(auth, (user) => {
+  if (user) cargarServicios();
+  else window.location.href = "login.html";
 });
 
-// Cargar los servicios al cargar la página
-cargarServicios();
+function datosFormulario(prefijo = "") {
+  const edit = prefijo === "edit";
+  return {
+    nombre: valor(`${prefijo}Nombre`) || valor("nombre"),
+    descripcion: valor(`${prefijo}Descripcion`) || valor("descripcion"),
+    categoria: valor(`${prefijo}Categoria`) || valor("categoria"),
+    telefono: valor(`${prefijo}Telefono`) || valor("telefono"),
+    email: valor(`${prefijo}Email`) || valor("email"),
+    imagen: valor(`${prefijo}Imagen`) || valor("imagen"),
+    direccion: valor(`${prefijo}Direccion`) || valor("direccion"),
+    zona: valor(`${prefijo}Zona`) || valor("zona"),
+    horario: valor(`${prefijo}Horario`) || valor("horario"),
+    geolocalizacion: valor(`${prefijo}Geolocalizacion`) || valor("geolocalizacion"),
+    web: valor(`${prefijo}Web`) || valor("web"),
+    instagram: valor(`${prefijo}Instagram`) || valor("instagram"),
+    facebook: valor(`${prefijo}Facebook`) || valor("facebook"),
+    estado: valor(`${prefijo}Estado`) || valor("estado") || "pendiente",
+    plan: valor(`${prefijo}Plan`) || valor("plan") || "basico",
+    verificado: check(`${prefijo}Verificado`) || (!edit && check("verificado")),
+    destacado: check(`${prefijo}Destacado`) || (!edit && check("destacado")),
+    urgencia24: check(`${prefijo}Urgencia24`) || (!edit && check("urgencia24"))
+  };
+}
 
-// codigo para buscar un servicio
+function setValor(id, value = "") {
+  const el = document.getElementById(id);
+  if (el) el.value = value || "";
+}
 
-const inputBuscador = document.getElementById('buscador');
+function setCheck(id, value = false) {
+  const el = document.getElementById(id);
+  if (el) el.checked = Boolean(value);
+}
 
-inputBuscador.addEventListener('input', () => {
-  const textoBuscado = inputBuscador.value.toLowerCase();
-  const tarjetas = document.querySelectorAll('.tarjeta-servicio');
+async function cargarServicios() {
+  const lista = $("#listaServiciosAdmin");
+  const contador = $("#adminContador");
+  if (!lista) return;
 
-  tarjetas.forEach(tarjeta => {
-    const nombreServicio = tarjeta.querySelector('.nombre-servicio').textContent.toLowerCase();
-    const categoriaServicio = tarjeta.querySelector('.categoria-servicio').textContent.toLowerCase();
+  lista.innerHTML = "";
+  const querySnapshot = await getDocs(serviciosRef);
+  serviciosCache = [];
 
-    if (nombreServicio.includes(textoBuscado) || categoriaServicio.includes(textoBuscado)) {
-      tarjeta.style.display = 'block';
-    } else {
-      tarjeta.style.display = 'none';
-    }
+  querySnapshot.forEach((docSnap) => serviciosCache.push({ id: docSnap.id, ...docSnap.data() }));
+  renderAdmin();
+  if (contador) contador.textContent = `${serviciosCache.length} servicio(s)`;
+}
+
+function renderAdmin() {
+  const lista = $("#listaServiciosAdmin");
+  const filtro = normalizar(valor("buscador"));
+  const categoria = valor("filtro-categoria");
+  const estado = valor("filtro-estado");
+  const ordenarPor = valor("ordenar") || "nombre";
+
+  let servicios = serviciosCache.filter((servicio) => {
+    const coincideTexto = [servicio.nombre, servicio.categoria, servicio.zona, servicio.direccion, servicio.telefono]
+      .some(campo => normalizar(campo).includes(filtro));
+    const coincideCategoria = !categoria || normalizar(servicio.categoria) === normalizar(categoria);
+    const coincideEstado = !estado || normalizar(servicio.estado || "aprobado") === normalizar(estado);
+    return coincideTexto && coincideCategoria && coincideEstado;
   });
+
+  if (ordenarPor === "nombre") servicios.sort((a, b) => (a.nombre || "").localeCompare(b.nombre || ""));
+  if (ordenarPor === "categoria") servicios.sort((a, b) => (a.categoria || "").localeCompare(b.categoria || ""));
+  if (ordenarPor === "plan") servicios.sort((a, b) => (b.plan || "basico").localeCompare(a.plan || "basico"));
+  if (ordenarPor === "estado") servicios.sort((a, b) => (a.estado || "aprobado").localeCompare(b.estado || "aprobado"));
+  if (ordenarPor === "vistas") servicios.sort((a, b) => Number(b.vistas || 0) - Number(a.vistas || 0));
+  if (ordenarPor === "contactos") servicios.sort((a, b) => Number(b.contactosWhatsapp || 0) - Number(a.contactosWhatsapp || 0));
+  if (ordenarPor === "rating") servicios.sort((a, b) => (Number(b.ratingPromedio || 0) * 100 + Number(b.ratingCantidad || 0)) - (Number(a.ratingPromedio || 0) * 100 + Number(a.ratingCantidad || 0)));
+
+  lista.innerHTML = "";
+  servicios.forEach((servicio) => {
+    const card = document.createElement("article");
+    card.className = "admin-service-card";
+    card.innerHTML = `
+      <div class="badges-row">
+        <span class="mini-badge estado-${servicio.estado || "aprobado"}">${servicio.estado || "aprobado"}</span>
+        <span class="mini-badge">${servicio.plan || "basico"}</span>
+        ${servicio.verificado ? `<span class="mini-badge">Verificado</span>` : ""}
+        ${servicio.destacado ? `<span class="mini-badge">Destacado</span>` : ""}
+        ${servicio.urgencia24 ? `<span class="mini-badge">24 hs</span>` : ""}
+      </div>
+      <h3>${servicio.nombre || "Sin nombre"}</h3>
+      <p><strong>Categoría:</strong> ${servicio.categoria || "No informada"}</p>
+      <p><strong>Teléfono:</strong> ${servicio.telefono || "No informado"}</p>
+      <p><strong>Zona:</strong> ${servicio.zona || servicio.direccion || "Gualeguay"}</p>
+      <div class="admin-metricas-linea">
+        <span class="admin-metrica-pill">⭐ ${textoRating(servicio)}</span>
+        <span class="admin-metrica-pill">👁️ ${servicio.vistas || 0} visitas</span>
+        <span class="admin-metrica-pill">💬 ${servicio.contactosWhatsapp || 0} WhatsApp</span>
+        <span class="admin-metrica-pill">📈 ${servicio.vistas ? (((Number(servicio.contactosWhatsapp || 0) / Number(servicio.vistas || 1)) * 100).toFixed(1)) : "0"}% conv.</span>
+      </div>
+      <div class="admin-service-actions">
+        <button class="btn btn-success" onclick="cambiarEstadoServicio('${servicio.id}', 'aprobado')">Aprobar</button>
+        <button class="btn btn-light" onclick="cambiarEstadoServicio('${servicio.id}', 'pendiente')">Pendiente</button>
+        <button class="btn btn-dark" onclick="editarServicio('${servicio.id}')">Editar</button>
+        <button class="btn btn-danger" onclick="eliminarServicio('${servicio.id}')">Eliminar</button>
+      </div>
+    `;
+    lista.appendChild(card);
+  });
+}
+
+$("#formAgregarServicio")?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const nuevoServicio = {
+    ...datosFormulario(""),
+    calificaciones: [],
+    comentarios: [],
+    creadoEn: new Date().toISOString(),
+    origen: "admin",
+    vistas: 0,
+    contactosWhatsapp: 0
+  };
+
+  await addDoc(serviciosRef, nuevoServicio);
+  alert(`Servicio '${nuevoServicio.nombre}' agregado correctamente.`);
+  event.target.reset();
+  await cargarServicios();
 });
 
-const geolocalizacion = document.getElementById("geolocalizacion").value;
+window.cambiarEstadoServicio = async function(id, estado) {
+  await updateDoc(doc(db, "servicios", id), { estado, actualizadoEn: new Date().toISOString() });
+  await cargarServicios();
+};
 
-function agregarComentario(id) {
-  const input = document.getElementById(`comentario-input-${id}`);
-  const texto = input.value.trim();
-  if (!texto) return;
+window.eliminarServicio = async function(id) {
+  if (!confirm("¿Estás seguro de eliminar este servicio?")) return;
+  await deleteDoc(doc(db, "servicios", id));
+  alert("Servicio eliminado.");
+  await cargarServicios();
+};
 
-  const servicios = JSON.parse(localStorage.getItem("servicios")) || [];
-  const servicio = servicios.find(s => s.id === id);
-
-  if (servicio) {
-      servicio.comentarios = servicio.comentarios || [];
-      servicio.comentarios.push(texto);
-      localStorage.setItem("servicios", JSON.stringify(servicios));
-      input.value = "";
-      cargarServicios(); // Recargar la vista con el nuevo comentario
+window.editarServicio = async function(id) {
+  idServicioActual = id;
+  const docSnap = await getDoc(doc(db, "servicios", id));
+  if (!docSnap.exists()) {
+    alert("El servicio no existe.");
+    return;
   }
-}
-function calificarServicio(id, calificacion) {
-  const servicios = JSON.parse(localStorage.getItem("servicios")) || [];
-  const servicio = servicios.find(s => s.id === id);
 
-  if (servicio) {
-      servicio.calificacion = calificacion;
-      localStorage.setItem("servicios", JSON.stringify(servicios));
-      cargarServicios(); // Recarga la vista
+  const servicio = docSnap.data();
+  setValor("editNombre", servicio.nombre);
+  setValor("editDescripcion", servicio.descripcion);
+  setValor("editCategoria", servicio.categoria);
+  setValor("editTelefono", servicio.telefono);
+  setValor("editEmail", servicio.email);
+  setValor("editImagen", servicio.imagen);
+  setValor("editDireccion", servicio.direccion);
+  setValor("editZona", servicio.zona);
+  setValor("editHorario", servicio.horario);
+  setValor("editGeolocalizacion", servicio.geolocalizacion);
+  setValor("editWeb", servicio.web);
+  setValor("editInstagram", servicio.instagram);
+  setValor("editFacebook", servicio.facebook);
+  setValor("editEstado", servicio.estado || "aprobado");
+  setValor("editPlan", servicio.plan || "basico");
+  setCheck("editVerificado", servicio.verificado);
+  setCheck("editDestacado", servicio.destacado);
+  setCheck("editUrgencia24", servicio.urgencia24);
+
+  document.getElementById("modalEditar")?.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
+$("#formEditarServicio")?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!idServicioActual) {
+    alert("Primero seleccioná un servicio para editar.");
+    return;
   }
-}
 
-document.getElementById('ordenar').addEventListener('change', (e) => {
-    const criterio = e.target.value;
-    servicios.sort((a, b) => a[criterio].localeCompare(b[criterio]));
-    cargarServicios();
-  });
-  
-  document.getElementById('filtro-categoria').addEventListener('change', (e) => {
-    const categoria = e.target.value;
-    const tarjetas = document.querySelectorAll('.tarjeta-servicio');
-  
-    tarjetas.forEach(tarjeta => {
-      const categoriaServicio = tarjeta.querySelector('.categoria-servicio').textContent.toLowerCase();
-      if (!categoria || categoriaServicio.includes(categoria.toLowerCase())) {
-        tarjeta.style.display = 'block';
-      } else {
-        tarjeta.style.display = 'none';
-      }
-    });
-  });
-  
+  const nuevosDatos = datosFormulario("edit");
+  await updateDoc(doc(db, "servicios", idServicioActual), nuevosDatos);
+  alert("Servicio actualizado correctamente.");
+  idServicioActual = null;
+  event.target.reset();
+  await cargarServicios();
+});
+
+$("#buscador")?.addEventListener("input", renderAdmin);
+$("#ordenar")?.addEventListener("change", renderAdmin);
+$("#filtro-categoria")?.addEventListener("change", renderAdmin);
+$("#filtro-estado")?.addEventListener("change", renderAdmin);

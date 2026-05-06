@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Prestador | Red de Servicio Gualeguay</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="prestador-page">
+  <header class="site-header small-header">
+    <div class="topbar contenedor">
+      <a class="brand" href="index.html">
+        <img src="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" alt="Logo" class="brand-logo" />
+        <span>Red de Servicio <strong>Gualeguay</strong></span>
+      </a>
+      <nav class="desktop-nav">
+        <a href="index.html">Inicio</a>
+        <a href="login-prestador.html">Ingresar</a>
+        <a href="login.html">Admin</a>
+      </nav>
+    </div>
+    <div class="contenedor mobile-actions-inline">
+      <a href="index.html" class="btn btn-primary">Inicio</a>
+      <a href="login-prestador.html" class="btn btn-light">Ingresar</a>
+    </div>
+    <section class="contenedor prestador-hero">
+      <span class="hero-badge">Alta de prestadores</span>
+      <h1>Publicá tu servicio y empezá a recibir consultas.</h1>
+      <p>Completá el formulario. Tu perfil quedará pendiente hasta que el administrador lo apruebe.</p>
+    </section>
+  </header>
+
+  <main class="contenedor admin-main">
+    <section class="prestador-layout">
+      <article class="form-card">
+        <h2>Crear cuenta de prestador</h2>
+        <form id="formRegistroPrestador" class="form-grid">
+          <label>Email de acceso<input type="email" id="registroEmail" required /></label>
+          <label>Contraseña<input type="password" id="registroPassword" minlength="6" required /></label>
+          <label>Nombre del servicio<input type="text" id="nombre" required /></label>
+          <label>Categoría<input type="text" id="categoria" placeholder="Ej: Electricista" required /></label>
+          <label class="full">Descripción<textarea id="descripcion" rows="4" required></textarea></label>
+          <label>WhatsApp<input type="tel" id="telefono" placeholder="Ej: 3444 123456" required /></label>
+          <label>Dirección<input type="text" id="direccion" required /></label>
+          <label>Zona<input type="text" id="zona" placeholder="Centro, Barrio Norte..." /></label>
+          <label>Horario<input type="text" id="horario" placeholder="Lunes a viernes de 9 a 18 hs" required /></label>
+          <label>Imagen URL<input type="url" id="imagen" placeholder="https://..." /></label>
+          <label>Google Maps<input type="url" id="geolocalizacion" placeholder="https://maps.google.com/..." /></label>
+          <label>Instagram<input type="url" id="instagram" placeholder="https://instagram.com/..." /></label>
+          <button class="btn btn-secondary full" type="submit">Crear perfil pendiente</button>
+        </form>
+        <p id="mensajePrestador" class="estado-servicios"></p>
+      </article>
+
+      <aside class="info-card">
+        <h2>¿Cómo funciona?</h2>
+        <div class="paso-mini"><strong>1</strong><span>Te registrás como prestador.</span></div>
+        <div class="paso-mini"><strong>2</strong><span>El administrador revisa tus datos.</span></div>
+        <div class="paso-mini"><strong>3</strong><span>Cuando se aprueba, aparecés en la plataforma.</span></div>
+        <hr />
+        <h3>Etapa de lanzamiento</h3>
+        <p>Podés ingresar gratis mientras validamos la red. Luego habrá planes Profesional y Premium.</p>
+      </aside>
+    </section>
+  </main>
+
+  <script type="module" src="js/prestador-registro.js"></script>
+<nav class="mobile-bottom-nav" aria-label="Navegación móvil">
+    <a href="index.html"><strong>⌂</strong><span>Inicio</span></a>
+    <a class="active" href="prestador-registro.html"><strong>＋</strong><span>Publicar</span></a>
+    <a href="login-prestador.html"><strong>👤</strong><span>Ingresar</span></a>
+    <a href="login.html"><strong>⚙</strong><span>Admin</span></a>
+  </nav>
+</body>
+</html>

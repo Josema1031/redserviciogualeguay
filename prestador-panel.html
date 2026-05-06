@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Panel | Prestador</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="prestador-page">
+  <header class="admin-header">
+    <div class="contenedor topbar">
+      <a class="brand" href="index.html">
+        <img src="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" alt="Logo" class="brand-logo" />
+        <span>Red de Servicio <strong>Gualeguay</strong></span>
+      </a>
+      <nav class="desktop-nav">
+        <a href="index.html">Ver sitio</a>
+        <button class="btn btn-light" id="btnCerrarSesion" type="button">Cerrar sesión</button>
+      </nav>
+    </div>
+    <div class="contenedor mobile-actions-inline">
+      <a href="index.html" class="btn btn-primary">Ver sitio</a>
+      <button class="btn btn-light" id="btnCerrarSesionTopMobile" type="button">Cerrar sesión</button>
+    </div>
+    <div class="contenedor admin-title">
+      <div>
+        <span class="hero-badge">Panel del prestador</span>
+        <h1>Mi perfil comercial</h1>
+        <p>Actualizá tus datos. Los cambios pueden quedar sujetos a revisión del administrador.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="contenedor admin-main">
+    <section class="prestador-layout">
+      <article class="info-card" id="resumenPrestador">
+        <h2>Estado del perfil</h2>
+        <p>Cargando información...</p>
+      </article>
+
+      <article class="form-card">
+        <h2>Editar mis datos</h2>
+        <form id="formPanelPrestador" class="form-grid">
+          <label>Nombre del servicio<input type="text" id="nombre" required /></label>
+          <label>Categoría<input type="text" id="categoria" required /></label>
+          <label class="full">Descripción<textarea id="descripcion" rows="4" required></textarea></label>
+          <label>WhatsApp<input type="tel" id="telefono" required /></label>
+          <label>Dirección<input type="text" id="direccion" required /></label>
+          <label>Zona<input type="text" id="zona" /></label>
+          <label>Horario<input type="text" id="horario" required /></label>
+          <label>Imagen URL<input type="url" id="imagen" /></label>
+          <label>Google Maps<input type="url" id="geolocalizacion" /></label>
+          <label>Instagram<input type="url" id="instagram" /></label>
+          <button class="btn btn-secondary full" type="submit">Guardar cambios</button>
+        </form>
+        <p id="mensajePanel" class="estado-servicios"></p>
+      </article>
+    </section>
+  </main>
+
+  <script type="module" src="js/prestador-panel.js"></script>
+<nav class="mobile-bottom-nav" aria-label="Navegación móvil">
+    <a href="index.html"><strong>⌂</strong><span>Sitio</span></a>
+    <a class="active" href="prestador-panel.html"><strong>👤</strong><span>Panel</span></a>
+    <a href="login-prestador.html"><strong>🔐</strong><span>Login</span></a>
+    <button id="btnCerrarSesionMobile" type="button"><strong>⏻</strong><span>Salir</span></button>
+  </nav>
+</body>
+</html>

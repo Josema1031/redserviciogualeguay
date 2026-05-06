@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ingresar como Prestador | Red de Servicio Gualeguay</title>
+  <link rel="shortcut icon" href="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" type="image/x-icon" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="prestador-page login-prestador-body">
+  <header class="site-header small-header">
+    <div class="topbar contenedor">
+      <a class="brand" href="index.html">
+        <img src="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" alt="Logo" class="brand-logo" />
+        <span>Red de Servicio <strong>Gualeguay</strong></span>
+      </a>
+      <nav class="desktop-nav">
+        <a href="index.html">Ver sitio</a>
+        <a href="prestador-registro.html" class="btn btn-light">Crear cuenta</a>
+      </nav>
+    </div>
+    <div class="contenedor mobile-actions-inline">
+      <a href="index.html" class="btn btn-primary">Ver sitio</a>
+      <a href="prestador-registro.html" class="btn btn-light">Crear cuenta</a>
+    </div>
+
+    <section class="contenedor prestador-hero login-hero">
+      <span class="hero-badge">Acceso de prestadores</span>
+      <h1>Ingresá a tu panel comercial.</h1>
+      <p>Usá el mismo email y contraseña que cargaste al registrarte. Desde el panel podés editar tus datos, ver métricas y revisar tus opiniones.</p>
+    </section>
+  </header>
+
+  <main class="contenedor admin-main">
+    <section class="prestador-layout login-prestador-layout">
+      <article class="form-card login-card">
+        <h2>Iniciar sesión</h2>
+        <p class="texto-ayuda-login">Ingresá con el correo y contraseña de tu cuenta de prestador.</p>
+
+        <form id="formLoginPrestador" class="form-grid">
+          <label class="full">Email
+            <input type="email" id="loginPrestadorEmail" placeholder="tuemail@gmail.com" required />
+          </label>
+
+          <label class="full">Contraseña
+            <div class="password-wrap">
+              <input type="password" id="loginPrestadorPassword" placeholder="Tu contraseña" minlength="6" required />
+              <button type="button" id="togglePrestadorPassword" class="toggle-password" aria-label="Mostrar contraseña">👁️</button>
+            </div>
+          </label>
+
+          <button class="btn btn-secondary full" type="submit">Ingresar a mi panel</button>
+        </form>
+
+        <div class="login-actions-extra">
+          <button type="button" id="btnRecuperarPassword" class="link-button">Olvidé mi contraseña</button>
+          <a href="prestador-registro.html">Crear cuenta nueva</a>
+        </div>
+
+        <p id="mensajeLoginPrestador" class="estado-servicios"></p>
+      </article>
+
+      <aside class="info-card">
+        <h2>¿Para qué sirve tu panel?</h2>
+        <div class="paso-mini"><strong>1</strong><span>Actualizar datos comerciales.</span></div>
+        <div class="paso-mini"><strong>2</strong><span>Ver visitas y clics en WhatsApp.</span></div>
+        <div class="paso-mini"><strong>3</strong><span>Revisar opiniones y reputación.</span></div>
+        <hr />
+        <h3>Importante</h3>
+        <p>Si modificás datos sensibles, tu perfil puede volver a quedar pendiente hasta que el administrador lo revise.</p>
+      </aside>
+    </section>
+  </main>
+
+  <script type="module" src="js/login-prestador.js"></script>
+<nav class="mobile-bottom-nav" aria-label="Navegación móvil">
+    <a href="index.html"><strong>⌂</strong><span>Inicio</span></a>
+    <a href="prestador-registro.html"><strong>＋</strong><span>Publicar</span></a>
+    <a class="active" href="login-prestador.html"><strong>👤</strong><span>Ingresar</span></a>
+    <a href="login.html"><strong>⚙</strong><span>Admin</span></a>
+  </nav>
+</body>
+</html>

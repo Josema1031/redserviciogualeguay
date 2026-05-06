@@ -1,32 +1,59 @@
-// Lista de usuarios y contraseñas
-const usuarios = [
-    { username: "josema", password: "13091988" },
-    { username: "empleado2", password: "contraseña2" },
-    { username: "empleado3", password: "contraseña3" },
-    { username: "empleado4", password: "contraseña4" },
-    { username: "empleado5", password: "contraseña5" }
-  ];
-  
-  // Función para validar el login
-  function validarLogin(username, password) {
-    // Buscar el usuario en la lista
-    const usuario = usuarios.find(user => user.username === username && user.password === password);
-    return usuario !== undefined; // Si el usuario existe, devuelve true
+// login.js con Firebase Auth
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+// Configuración de Firebase (reutilizá tu config real)
+const firebaseConfig = {
+  apiKey: "AIzaSyCXRkJAVQKMNgMGXFE8a13vrKvH4diARsg",
+  authDomain: "red-servicio-gualeguay.firebaseapp.com",
+  projectId: "red-servicio-gualeguay",
+  storageBucket: "red-servicio-gualeguay.firebasestorage.app",
+  messagingSenderId: "746177371010",
+  appId: "1:746177371010:web:44612952639c6666010d9b"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Manejo del formulario de login
+document.getElementById('formLogin').addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const email = document.getElementById('username').value;  // usamos el campo 'username' como email
+  const password = document.getElementById('password').value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Login exitoso
+      window.location.href = "admin.html";
+    })
+    .catch((error) => {
+      // Error de autenticación
+      document.getElementById('mensaje-error').textContent = "Email o contraseña incorrectos.";
+    });
+});
+// Mostrar/ocultar contraseña
+document.getElementById("togglePassword").addEventListener("click", () => {
+  const passwordInput = document.getElementById("password");
+  const icon = document.getElementById("togglePassword");
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    icon.textContent = "🙈";
+  } else {
+    passwordInput.type = "password";
+    icon.textContent = "👁️";
   }
-  
-  // Manejo del formulario de login
-  document.getElementById('formLogin').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evitar que el formulario se envíe automáticamente
-  
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-  
-    if (validarLogin(username, password)) {
-      // Redirigir al panel de control si el login es exitoso
-      window.location.href = "admin.html"; // Aquí pondrás la URL de tu panel de control
-    } else {
-      // Mostrar mensaje de error si el login es incorrecto
-      document.getElementById('mensaje-error').textContent = "Usuario o contraseña incorrectos.";
-    }
-  });
-  
+});
+
+// Permitir login con tecla Enter desde el campo contraseña
+document.getElementById("password").addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    document.getElementById("formLogin").dispatchEvent(new Event("submit"));
+  }
+});
