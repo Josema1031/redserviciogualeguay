@@ -1,0 +1,51 @@
+# CAMBIOS V8 — PROYECTO CONVERTIDO EN PWA
+
+Socio, esta versión deja el proyecto preparado para instalarse como aplicación en celular o computadora.
+
+## Archivos agregados
+
+- manifest.webmanifest
+- sw.js
+- js/pwa.js
+- carpeta icons/ con íconos 72, 96, 128, 144, 152, 192, 384 y 512 px
+- íconos maskable para Android
+
+## Páginas preparadas como PWA
+
+- index.html
+- login-prestador.html
+- prestador-registro.html
+- prestador-panel.html
+- login.html
+- admin.html
+- servicios.html
+
+## Qué permite ahora
+
+- Instalar la plataforma como app.
+- Abrirla en modo pantalla completa/standalone.
+- Mantener archivos principales en caché.
+- Mostrar aviso cuando no hay conexión.
+- Cargar más rápido después de la primera visita.
+
+## Importante
+
+Para que la PWA funcione correctamente debe estar publicada en:
+
+- HTTPS, por ejemplo GitHub Pages, Firebase Hosting, Netlify o Vercel.
+- En localhost también funciona para pruebas.
+
+No funciona como PWA completa si abrís el archivo directo con doble clic desde la computadora.
+
+## Recomendación para probar
+
+1. Subí el proyecto a GitHub Pages o Firebase Hosting.
+2. Abrí el sitio desde Chrome.
+3. Entrá al index.
+4. Esperá unos segundos.
+5. Chrome debería mostrar opción de instalar app.
+6. También podés ir a menú de Chrome > Instalar app.
+
+## Nota técnica
+
+El service worker NO guarda en caché datos de Firebase ni Google APIs para evitar información desactualizada o sensible. Solo guarda archivos base de la app.

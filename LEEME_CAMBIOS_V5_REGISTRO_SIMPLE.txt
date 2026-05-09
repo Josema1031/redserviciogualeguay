@@ -1,0 +1,38 @@
+CAMBIOS V5 - REGISTRO DE PRESTADOR MÁS SIMPLE
+
+Archivo principal modificado:
+- prestador-registro.html
+- js/prestador-registro.js
+- css/styles.css
+
+MEJORAS REALIZADAS:
+1) Se eliminó la carga de imagen por URL en el registro público.
+2) Ahora el prestador puede subir una foto desde la galería del celular o desde la computadora.
+3) Se agregó vista previa de la imagen antes de enviar el formulario.
+4) Se eliminó la obligación de copiar un link de Google Maps.
+5) Ahora la ubicación se carga de forma simple con:
+   - Dirección
+   - Zona / Barrio
+   - Localidad
+6) También se agregó un botón: "Usar mi ubicación actual".
+   Si el prestador está en el lugar, el sistema genera automáticamente el link de Google Maps.
+7) Si el prestador no sabe usar ubicación GPS, igual puede enviar el formulario solo con dirección, zona y localidad.
+
+IMPORTANTE SOBRE FIREBASE STORAGE:
+Para que la carga de imágenes funcione, Firebase Storage debe estar habilitado.
+Si aparece error de permisos al subir imagen, revisar las reglas de Storage.
+
+Reglas de Storage sugeridas para etapa inicial con usuarios autenticados:
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /prestadores/{userId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+
+NOTA:
+Estas reglas permiten que cada prestador suba imágenes solo dentro de su carpeta.

@@ -91,3 +91,53 @@ body {
     border-radius: 18px;
   }
 }
+
+
+/* ==============================
+   PWA / Instalación como app
+   ============================== */
+.btn-install-app {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: #14532d;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(20, 83, 45, 0.22);
+}
+
+.btn-install-app[hidden] {
+  display: none !important;
+}
+
+.pwa-estado-conexion {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  max-width: min(92vw, 520px);
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.22);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.pwa-estado-conexion.online {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pwa-estado-conexion.offline {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.pwa-estado-conexion.oculto {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(12px);
+}

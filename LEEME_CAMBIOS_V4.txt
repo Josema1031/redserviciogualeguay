@@ -1,0 +1,33 @@
+CAMBIOS REALIZADOS - V4 PROFESIONAL
+
+1) INDEX PÚBLICO
+- Se eliminó el botón ADMIN del menú principal.
+- El acceso administrador queda fuera de la vista pública para clientes y prestadores.
+- Se agregaron más categorías al buscador.
+- Se agregaron chips rápidos para servicios urbanos, técnicos, automotor y rural.
+- Se agregó una sección visual de rubros destacados: Hogar, Tecnología, Rural y Urgencias 24 hs.
+
+2) FORMULARIO DE PRESTADORES
+- Se eliminó el acceso Admin de la vista del prestador.
+- El campo Categoría ahora es un selector profesional con más opciones.
+- Se mantiene la lógica actual de Firebase.
+
+3) PANEL DEL PRESTADOR
+- El campo Categoría también pasó a ser selector.
+- Se mantiene la edición de datos existente.
+
+4) PANEL ADMIN
+- Se agregaron más categorías al filtro del panel administrador.
+- El alta y edición de servicios ahora usan selector de categorías.
+- No se eliminó el admin.html: solo se ocultó del circuito público.
+
+5) DISEÑO RESPONSIVE
+- Se mejoró el aspecto mobile.
+- Las cards de servicios quedan en 2 columnas en celular.
+- Se compactaron textos, botones y tarjetas.
+- Se mejoró la visualización de rubros principales.
+- Se reforzó el estilo tipo app profesional.
+
+IMPORTANTE:
+- Para ingresar al administrador, usar directamente: login.html
+- Para el público y prestadores, el botón Admin ya no aparece.

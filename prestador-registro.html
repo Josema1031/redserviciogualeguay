@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro de Prestador | Red de Servicio Gualeguay</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#14532d" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Red Servicio" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
 </head>
 <body class="prestador-page">
   <header class="site-header small-header">
@@ -16,7 +23,6 @@
       <nav class="desktop-nav">
         <a href="index.html">Inicio</a>
         <a href="login-prestador.html">Ingresar</a>
-        <a href="login.html">Admin</a>
       </nav>
     </div>
     <div class="contenedor mobile-actions-inline">
@@ -38,15 +44,66 @@
           <label>Email de acceso<input type="email" id="registroEmail" required /></label>
           <label>Contraseña<input type="password" id="registroPassword" minlength="6" required /></label>
           <label>Nombre del servicio<input type="text" id="nombre" required /></label>
-          <label>Categoría<input type="text" id="categoria" placeholder="Ej: Electricista" required /></label>
+          <label>Categoría<select id="categoria" required>
+              <option value="">Seleccionar categoría</option>
+              <option value="Electricista">Electricista</option>
+              <option value="Plomero">Plomero</option>
+              <option value="Gasista">Gasista</option>
+              <option value="Cerrajero">Cerrajero</option>
+              <option value="Carpintero">Carpintero</option>
+              <option value="Albañil">Albañil</option>
+              <option value="Pintor">Pintor</option>
+              <option value="Techista">Techista</option>
+              <option value="Jardinería">Jardinería</option>
+              <option value="Limpieza">Limpieza</option>
+              <option value="Técnico PC">Técnico PC</option>
+              <option value="Cámaras de seguridad">Cámaras de seguridad</option>
+              <option value="Redes WiFi">Redes WiFi</option>
+              <option value="Reparación celular">Reparación celular</option>
+              <option value="Mecánico">Mecánico</option>
+              <option value="Gomería">Gomería</option>
+              <option value="Auxilio mecánico">Auxilio mecánico</option>
+              <option value="Alambrador">Alambrador</option>
+              <option value="Tractorista">Tractorista</option>
+              <option value="Veterinario rural">Veterinario rural</option>
+              <option value="Fumigación">Fumigación</option>
+              <option value="Seguridad rural">Seguridad rural</option>
+            </select></label>
           <label class="full">Descripción<textarea id="descripcion" rows="4" required></textarea></label>
           <label>WhatsApp<input type="tel" id="telefono" placeholder="Ej: 3444 123456" required /></label>
-          <label>Dirección<input type="text" id="direccion" required /></label>
-          <label>Zona<input type="text" id="zona" placeholder="Centro, Barrio Norte..." /></label>
+          <label>Dirección<input type="text" id="direccion" placeholder="Ej: San Martín 123" required /></label>
+          <label>Zona / Barrio<input type="text" id="zona" placeholder="Centro, Barrio Norte..." /></label>
+          <label>Localidad<input type="text" id="localidad" value="Gualeguay" placeholder="Ej: Gualeguay" /></label>
           <label>Horario<input type="text" id="horario" placeholder="Lunes a viernes de 9 a 18 hs" required /></label>
-          <label>Imagen URL<input type="url" id="imagen" placeholder="https://..." /></label>
-          <label>Google Maps<input type="url" id="geolocalizacion" placeholder="https://maps.google.com/..." /></label>
+
+          <div class="full campo-simple-box">
+            <label class="file-label">Foto del servicio o logo
+              <input type="file" id="imagenArchivo" accept="image/*" />
+            </label>
+            <div class="preview-imagen-registro">
+              <img id="previewImagen" src="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" alt="Vista previa de la imagen" />
+              <div>
+                <strong>Elegí una foto desde la galería</strong>
+                <p>No hace falta copiar una URL. Puede ser una foto del trabajo, vehículo, local o logo.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="full campo-simple-box ubicacion-simple">
+            <div>
+              <strong>Ubicación simple</strong>
+              <p>El prestador puede escribir dirección, zona y localidad. Si está en el lugar, también puede tocar el botón para usar la ubicación del celular.</p>
+            </div>
+            <button class="btn btn-light btn-ubicacion" type="button" id="btnUsarUbicacion">📍 Usar mi ubicación actual</button>
+            <p id="estadoUbicacion" class="ayuda-campo">Todavía no se cargó ubicación por GPS. Con la dirección escrita alcanza para crear el perfil.</p>
+            <input type="hidden" id="latitud" />
+            <input type="hidden" id="longitud" />
+            <input type="hidden" id="geolocalizacion" />
+          </div>
+
+          <label>Sitio web<input type="url" id="web" placeholder="https://..." /></label>
           <label>Instagram<input type="url" id="instagram" placeholder="https://instagram.com/..." /></label>
+          <label>Facebook<input type="url" id="facebook" placeholder="https://facebook.com/..." /></label>
           <button class="btn btn-secondary full" type="submit">Crear perfil pendiente</button>
         </form>
         <p id="mensajePrestador" class="estado-servicios"></p>
@@ -69,7 +126,7 @@
     <a href="index.html"><strong>⌂</strong><span>Inicio</span></a>
     <a class="active" href="prestador-registro.html"><strong>＋</strong><span>Publicar</span></a>
     <a href="login-prestador.html"><strong>👤</strong><span>Ingresar</span></a>
-    <a href="login.html"><strong>⚙</strong><span>Admin</span></a>
   </nav>
+  <script src="js/pwa.js"></script>
 </body>
 </html>

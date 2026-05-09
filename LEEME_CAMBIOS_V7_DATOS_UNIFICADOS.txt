@@ -1,0 +1,66 @@
+V7 - DATOS UNIFICADOS ENTRE ADMIN Y PRESTADOR
+
+Objetivo de esta versión:
+Que los datos que ve y edita el administrador sean los mismos datos que carga y edita el prestador.
+
+Archivos trabajados:
+- admin.html
+- js/admin.js
+- prestador-registro.html
+- js/prestador-registro.js
+- prestador-panel.html
+- js/prestador-panel.js
+- login-prestador.html mantiene el ingreso del prestador por Firebase Auth.
+
+Colección principal:
+- servicios
+
+Campos unificados del perfil:
+- ownerUid
+- ownerEmail
+- nombre
+- categoria
+- descripcion
+- telefono
+- email
+- direccion
+- zona
+- localidad
+- horario
+- imagen
+- geolocalizacion
+- latitud
+- longitud
+- web
+- instagram
+- facebook
+- estado
+- plan
+- verificado
+- destacado
+- urgencia24
+- vistas
+- contactosWhatsapp
+- ratingPromedio
+- ratingCantidad
+- creadoEn
+- actualizadoEn
+
+Mejoras realizadas:
+1) prestador-registro.html ahora carga los mismos campos base que admin.html.
+2) prestador-panel.html ahora permite editar los mismos datos públicos del servicio.
+3) La imagen en el panel del prestador ya no es por URL: se puede cambiar desde galería.
+4) La ubicación del panel del prestador ya no es por link manual: usa dirección/zona/localidad o botón GPS.
+5) El admin sigue administrando campos internos: estado, plan, verificado, destacado y urgencia 24 hs.
+6) El prestador no puede editar plan ni estado desde su panel. Si cambia datos, vuelve a pendiente.
+7) Todos los datos se siguen guardando en una sola colección: servicios.
+
+IMPORTANTE:
+Para que la carga de imágenes funcione, Firebase Storage debe estar habilitado.
+Si aparece error storage/unauthorized, revisar reglas de Storage.
+
+Recomendación de uso:
+- El prestador se registra desde prestador-registro.html.
+- Luego ingresa por login-prestador.html.
+- Edita sus datos desde prestador-panel.html.
+- El administrador revisa, corrige, aprueba y activa planes desde admin.html.

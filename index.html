@@ -11,6 +11,13 @@
   <meta property="og:image" content="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" />
   <link rel="shortcut icon" href="img/3a2974dc-daa1-4b56-8654-e9f65ea8de66.png" type="image/x-icon" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#14532d" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Red Servicio" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
 </head>
 <body>
   <header class="site-header">
@@ -25,7 +32,6 @@
         <a href="#planes">Publicar mi servicio</a>
         <a href="prestador-registro.html">Publicar servicio</a>
         <a href="login-prestador.html">Ingresar prestador</a>
-        <a href="login.html" class="nav-admin">Admin</a>
       </nav>
       <button class="mobile-menu-toggle" id="btnMobileMenu" type="button" aria-expanded="false" aria-controls="mobileMenu">☰</button>
     </div>
@@ -43,11 +49,12 @@
         <h1>Encontrá rápido un prestador confiable cerca tuyo.</h1>
         <p>Electricistas, plomeros, gasistas, técnicos, carpinteros y más servicios para vecinos de Gualeguay.</p>
         <div class="hero-actions">
+          <button class="btn-install-app" type="button" data-pwa-install hidden>📲 Instalar app</button>
           <a href="#servicios" class="btn btn-primary">Buscar servicio</a>
           <a href="prestador-registro.html" class="btn btn-secondary">Publicar mi servicio</a>
           <a href="login-prestador.html" class="btn btn-light">Ingresar como prestador</a>
         </div>
-        <p class="mobile-hero-help">Tocá el menú ☰ para publicar o ingresar como prestador.</p>
+       
       </div>
       <div class="hero-card">
         <h2>¿Qué necesitás solucionar?</h2>
@@ -58,10 +65,26 @@
             <option value="Electricista">Electricista</option>
             <option value="Plomero">Plomero</option>
             <option value="Gasista">Gasista</option>
+            <option value="Cerrajero">Cerrajero</option>
             <option value="Carpintero">Carpintero</option>
-            <option value="Técnico">Técnico</option>
             <option value="Albañil">Albañil</option>
+            <option value="Pintor">Pintor</option>
+            <option value="Techista">Techista</option>
             <option value="Jardinería">Jardinería</option>
+            <option value="Limpieza">Limpieza</option>
+            <option value="Técnico">Técnico general</option>
+            <option value="Técnico PC">Técnico PC</option>
+            <option value="Cámaras de seguridad">Cámaras de seguridad</option>
+            <option value="Redes WiFi">Redes WiFi</option>
+            <option value="Reparación celular">Reparación celular</option>
+            <option value="Mecánico">Mecánico</option>
+            <option value="Gomería">Gomería</option>
+            <option value="Auxilio mecánico">Auxilio mecánico</option>
+            <option value="Alambrador">Alambrador</option>
+            <option value="Tractorista">Tractorista</option>
+            <option value="Veterinario rural">Veterinario rural</option>
+            <option value="Fumigación">Fumigación</option>
+            <option value="Seguridad rural">Seguridad rural</option>
           </select>
           <select id="ordenarServicios">
             <option value="default">Ordenar por...</option>
@@ -82,9 +105,38 @@
       <button class="categoria-chip" data-categoria="Electricista">⚡ Electricista</button>
       <button class="categoria-chip" data-categoria="Plomero">🔧 Plomero</button>
       <button class="categoria-chip" data-categoria="Gasista">🔥 Gasista</button>
-      <button class="categoria-chip" data-categoria="Carpintero">🪵 Carpintero</button>
+      <button class="categoria-chip" data-categoria="Cerrajero">🔐 Cerrajero</button>
+      <button class="categoria-chip" data-categoria="Pintor">🎨 Pintor</button>
       <button class="categoria-chip" data-categoria="Técnico">🛠️ Técnico</button>
-      <button class="categoria-chip" data-categoria="Albañil">🏗️ Albañil</button>
+      <button class="categoria-chip" data-categoria="Técnico PC">💻 Técnico PC</button>
+      <button class="categoria-chip" data-categoria="Cámaras de seguridad">📷 Cámaras</button>
+      <button class="categoria-chip" data-categoria="Mecánico">🚗 Mecánico</button>
+      <button class="categoria-chip" data-categoria="Auxilio mecánico">🛻 Auxilio</button>
+      <button class="categoria-chip" data-categoria="Alambrador">🚜 Rural</button>
+      <button class="categoria-chip" data-categoria="Veterinario rural">🐄 Veterinario</button>
+    </section>
+
+    <section class="rubros-destacados contenedor" aria-label="Rubros principales">
+      <article class="rubro-card">
+        <span>🏠</span>
+        <h3>Hogar y construcción</h3>
+        <p>Electricista, plomero, gasista, cerrajero, pintor, techista, albañil y limpieza.</p>
+      </article>
+      <article class="rubro-card">
+        <span>💻</span>
+        <h3>Tecnología y seguridad</h3>
+        <p>Técnico PC, cámaras de seguridad, redes WiFi, celulares, alarmas y soporte técnico.</p>
+      </article>
+      <article class="rubro-card">
+        <span>🚜</span>
+        <h3>Servicios rurales</h3>
+        <p>Alambrador, tractorista, fumigación, veterinario rural, maquinaria y seguridad rural.</p>
+      </article>
+      <article class="rubro-card urgente">
+        <span>⚡</span>
+        <h3>Urgencias 24 hs</h3>
+        <p>Prestadores disponibles para resolver emergencias y consultas rápidas por WhatsApp.</p>
+      </article>
     </section>
 
     <section id="servicios" class="servicios-section contenedor">
@@ -166,5 +218,6 @@
     }
   </script>
   <script type="module" src="js/index.js"></script>
+  <script src="js/pwa.js"></script>
 </body>
 </html>

@@ -1,0 +1,61 @@
+V6 - ADMIN PROFESIONAL EDITABLE
+
+Cambios realizados:
+
+1) El admin ahora trabaja sobre la MISMA colección de Firebase: servicios.
+   - No se duplican datos.
+   - El prestador carga desde prestador-registro.html.
+   - El admin lee, corrige y actualiza esos mismos datos.
+   - El index muestra los servicios aprobados.
+
+2) Mejoras en admin.html:
+   - Se eliminó la carga de imagen por URL en el formulario del admin.
+   - Ahora el admin puede subir imagen desde galería/PC/celular.
+   - Se agregó vista previa de imagen al agregar servicio.
+   - Se agregó vista previa de imagen al editar servicio.
+   - Si al editar no se sube una imagen nueva, se conserva la imagen anterior.
+
+3) Ubicación más práctica:
+   - El admin puede cargar dirección, zona/barrio y localidad.
+   - Ya no hace falta copiar un link de Google Maps.
+   - El sistema genera automáticamente un link de Maps con esos datos.
+   - También se agregó botón para usar ubicación actual por GPS.
+   - Guarda latitud, longitud y geolocalización cuando se usa GPS.
+
+4) Edición completa desde admin:
+   - Nombre.
+   - Categoría.
+   - Descripción.
+   - Teléfono.
+   - Email.
+   - Imagen.
+   - Dirección.
+   - Zona.
+   - Localidad.
+   - Horario.
+   - Web.
+   - Instagram.
+   - Facebook.
+   - Estado: pendiente, aprobado o suspendido.
+   - Plan: básico, profesional o premium.
+   - Verificado.
+   - Destacado.
+   - Urgencia 24 hs.
+
+IMPORTANTE:
+Para subir imágenes, Firebase Storage debe estar habilitado.
+Si aparece storage/unauthorized, revisar reglas de Storage.
+
+Regla básica sugerida para pruebas internas:
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+
+Para monetizar, luego conviene endurecer reglas por ownerUid y rol admin.
